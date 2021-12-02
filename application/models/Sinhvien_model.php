@@ -1,6 +1,6 @@
 <?php
 
-class Crud_model extends CI_Model
+class Sinhvien_model extends CI_Model
 {
 
     public function get_entries()

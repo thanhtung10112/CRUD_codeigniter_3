@@ -8,7 +8,7 @@ class Welcome extends CI_Controller
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 		$this->load->library(array('form_validation'));
-		$this->load->model('crud_model');
+		$this->load->model('Sinhvien_model');
 	}
 
 	public function index()
@@ -27,7 +27,7 @@ class Welcome extends CI_Controller
 			} else {
 				$ajax_data = $this->input->post();
 
-				if ($this->crud_model->insert_entry($ajax_data)) {
+				if ($this->Sinhvien_model->insert_entry($ajax_data)) {
 					$data = array('response' => "success", 'message' => "Data added successfully");
 				} else {
 					$data = array('response' => "error", 'message' => "failed");
@@ -43,7 +43,7 @@ class Welcome extends CI_Controller
 	public function fetch()
 	{
 		if ($this->input->is_ajax_request()) {
-			$posts = $this->crud_model->get_entries();
+			$posts = $this->Sinhvien_model->get_entries();
 			echo json_encode($posts);
 		} else {
 			echo "'No direct script access allowed'";
@@ -56,7 +56,7 @@ class Welcome extends CI_Controller
 
 			$del_id = $this->input->post('del_id');
 
-			if ($this->crud_model->delete_entry($del_id)) {
+			if ($this->Sinhvien_model->delete_entry($del_id)) {
 				$data = array('response' => "success",);
 			} else {
 				$data = array('response' => "error");
@@ -73,7 +73,7 @@ class Welcome extends CI_Controller
 
 			$edit_id = $this->input->post('edit_id');
 
-			if ($post = $this->crud_model->single_entry($edit_id)) {
+			if ($post = $this->Sinhvien_model->single_entry($edit_id)) {
 				$data = array('response' => "success", 'post' => $post);
 			} else {
 				$data = array('response' => "error", 'message' => "failed");
@@ -96,7 +96,7 @@ class Welcome extends CI_Controller
 				$data['name'] = $this->input->post('edit_name');
 				$data['email'] = $this->input->post('edit_email');
 
-				if ($this->crud_model->update_entry($data)) {
+				if ($this->Sinhvien_model->update_entry($data)) {
 					$data = array('response' => "success", 'message' => "Data update successfully");
 				} else {
 					$data = array('response' => "error", 'message' => "failed");
